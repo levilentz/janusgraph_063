@@ -1,0 +1,195 @@
+PS C:\Users\598073\Downloads\janusgraph-full-0.6.3\janusgraph-full-0.6.3> docker-compose up -d
+[+] Running 11/12
+ - janusgraph Error                                                                                                              3.4s
+ - cassandra Pulled                                                                                                             20.6s
+   - 0fb668748fc8 Pull complete                                                                                                 11.0s
+   - e0c6314534fa Pull complete                                                                                                 12.3s
+   - 87b76ff479c9 Pull complete                                                                                                 14.4s
+   - 0fe5e65faa45 Pull complete                                                                                                 14.4s
+   - 06c62d838560 Pull complete                                                                                                 14.5s
+   - af16b6ef4904 Pull complete                                                                                                 15.4s
+   - bbd7f7b9e407 Pull complete                                                                                                 15.5s
+   - e7ae575191f1 Pull complete                                                                                                 16.4s
+   - 83ff8fa0decf Pull complete                                                                                                 16.5s
+   - 2fc55661a63c Pull complete                                                                                                 16.6s
+[+] Building 5.5s (11/11) FINISHED
+ => [internal] load build definition from Dockerfile                                                                             0.0s
+ => => transferring dockerfile: 32B                                                                                              0.0s
+ => [internal] load .dockerignore                                                                                                0.0s
+ => => transferring context: 2B                                                                                                  0.0s
+ => [internal] load metadata for docker.io/library/alpine:latest                                                                 4.6s
+ => [1/6] FROM docker.io/library/alpine:latest@sha256:82d1e9d7ed48a7523bdebc18cf6290bdb97b82302a8a9c27d4fe885949ea94d1           0.0s
+ => [internal] load build context                                                                                                0.8s
+ => => transferring context: 283.32kB                                                                                            0.7s
+ => CACHED [2/6] RUN apk add openjdk11 bash                                                                                      0.0s
+ => CACHED [3/6] RUN apk --no-cache add procps                                                                                   0.0s
+ => CACHED [4/6] RUN mkdir /app                                                                                                  0.0s
+ => CACHED [5/6] COPY . /app                                                                                                     0.0s
+ => CACHED [6/6] WORKDIR /app                                                                                                    0.0s
+ => exporting to image                                                                                                           0.0s
+ => => exporting layers                                                                                                          0.0s
+ => => writing image sha256:f030ee87d38143ded14ab7ad32e1875d740074ce2d1b743b2ec3aa531005a7f2                                     0.0s
+ => => naming to docker.io/library/janusgraphbuild                                                                               0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+[+] Running 4/4
+ - Network janusgraph-full-063_janusgraph  Created                                                                               0.8s
+ - Volume "janusgraph-full-063_cassandra"  Created                                                                               0.0s
+ - Container janusgraph_cassandra          Started                                                                               1.8s
+ - Container janusgraph                    Started                                                                               6.0s
+PS C:\Users\598073\Downloads\janusgraph-full-0.6.3\janusgraph-full-0.6.3> docker exec -it janusgraph /app/bin/gremlin.sh
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (file:/app/lib/groovy-2.5.15-indy.jar) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+Jul 25, 2023 2:54:19 AM java.util.prefs.FileSystemPreferences$1 run
+INFO: Created user preferences directory.
+
+         \,,,/
+         (o o)
+-----oOOo-(3)-oOOo-----
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/app/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/app/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+plugin activated: tinkerpop.server
+plugin activated: tinkerpop.tinkergraph
+02:54:23 WARN  org.apache.hadoop.util.NativeCodeLoader - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+plugin activated: tinkerpop.hadoop
+plugin activated: tinkerpop.spark
+plugin activated: tinkerpop.utilities
+plugin activated: janusgraph.imports
+gremlin> :remote connect tinkerpop.server conf/remote.yaml session
+==>Configured localhost/127.0.0.1:8182-[c4d599a6-3c60-44e2-9344-d6bf5775814a]
+gremlin> :remote console
+==>All scripts will now be sent to Gremlin Server - [localhost/127.0.0.1:8182]-[c4d599a6-3c60-44e2-9344-d6bf5775814a] - type ':remote console' to return to local mode
+gremlin> map = new HashMap<>()
+gremlin> map.put('storage.backend', 'cql')
+==>null
+gremlin> map.put('storage.hostname', 'cassandra')
+==>null
+gremlin> map.put('storage.username', 'cassandra')
+==>null
+gremlin> map.put('storage.password', 'cassandra')
+==>null
+gremlin> map.put('storage.cql.keyspace', 'janusgraph-configuredgraphmanangement')
+==>null
+gremlin> map.put('schema.default', 'none')
+==>null
+gremlin> map.put('storage.batch-loading',true)
+==>null
+gremlin> map.put('storage.buffer-size',10000)
+==>null
+gremlin> conf = new MapConfiguration(map)
+==>MapConfiguration [map={storage.cql.keyspace=janusgraph-configuredgraphmanangement, storage.username=cassandra, storage.backend=cql, storage.hostname=cassandra, storage.password=cassandra, schema.default=none, storage.batch-loading=true, storage.buffer-size=10000}, trimmingDisabled=false]
+gremlin> ConfiguredGraphFactory.createTemplateConfiguration(conf)
+==>null
+gremlin> map = ConfiguredGraphFactory.getConfiguration()
+==>storage.cql.keyspace=janusgraph-configuredgraphmanangement
+==>storage.username=cassandra
+==>storage.backend=cql
+==>storage.hostname=cassandra
+==>storage.password=cassandra
+==>schema.default=none
+==>storage.batch-loading=true
+==>Template_Configuration=true
+==>storage.buffer-size=10000
+gremlin> map.put('storage.cql.keyspace', 'graphs_janusgraph_toygraph')
+==>janusgraph-configuredgraphmanangement
+gremlin> map.put('graph.graphname', 'toygraph')
+==>null
+gremlin> conf = new MapConfiguration(map)
+==>MapConfiguration [map={storage.cql.keyspace=graphs_janusgraph_toygraph, storage.username=cassandra, storage.backend=cql, graph.graphname=toygraph, storage.hostname=cassandra, storage.password=cassandra, schema.default=none, storage.batch-loading=true, Template_Configuration=true, storage.buffer-size=10000}, trimmingDisabled=false]
+gremlin> ConfiguredGraphFactory.createConfiguration(conf)
+==>null
+gremlin> mgmt = ConfiguredGraphFactory.open('toygraph').openManagement()
+==>org.janusgraph.graphdb.database.management.ManagementSystem@134c8944
+gremlin> graph = ConfiguredGraphFactory.open('toygraph')
+==>standardjanusgraph[cql:[cassandra]]
+gremlin> GraphOfTheGodsFactory.loadWithoutMixedIndex(graph,true)
+==>null
+gremlin> mgmt.printSchema()
+==>------------------------------------------------------------------------------------------------
+Vertex Label Name              | Partitioned | Static                                             |
+---------------------------------------------------------------------------------------------------
+titan                          | false       | false                                              |
+location                       | false       | false                                              |
+god                            | false       | false                                              |
+demigod                        | false       | false                                              |
+human                          | false       | false                                              |
+monster                        | false       | false                                              |
+---------------------------------------------------------------------------------------------------
+Edge Label Name                | Directed    | Unidirected | Multiplicity                         |
+---------------------------------------------------------------------------------------------------
+father                         | true        | false       | MANY2ONE                             |
+mother                         | true        | false       | MANY2ONE                             |
+battled                        | true        | false       | MULTI                                |
+lives                          | true        | false       | MULTI                                |
+pet                            | true        | false       | MULTI                                |
+brother                        | true        | false       | MULTI                                |
+---------------------------------------------------------------------------------------------------
+Property Key Name              | Cardinality | Data Type                                          |
+---------------------------------------------------------------------------------------------------
+name                           | SINGLE      | class java.lang.String                             |
+age                            | SINGLE      | class java.lang.Integer                            |
+time                           | SINGLE      | class java.lang.Integer                            |
+reason                         | SINGLE      | class java.lang.String                             |
+place                          | SINGLE      | class org.janusgraph.core.attribute.Geoshape       |
+---------------------------------------------------------------------------------------------------
+Graph Index (Vertex)           | Type        | Unique    | Backing        | Key:           Status |
+---------------------------------------------------------------------------------------------------
+name                           | Composite   | true      | internalindex  | name:         ENABLED |
+---------------------------------------------------------------------------------------------------
+Graph Index (Edge)             | Type        | Unique    | Backing        | Key:           Status |
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+Relation Index (VCI)           | Type        | Direction | Sort Key       | Order    |     Status |
+---------------------------------------------------------------------------------------------------
+battlesByTime                  | battled     | BOTH      | time           | desc     |    ENABLED |
+---------------------------------------------------------------------------------------------------
+
+gremlin> g = graph.traversal()
+==>graphtraversalsource[standardjanusgraph[cql:[cassandra]], standard]
+gremlin> g.V().has('name', 'saturn').valueMap()
+==>{name=[saturn], age=[10000]}
+gremlin> g.V().bothE().valueMap()
+==>{reason=loves waves}
+==>{}
+==>{}
+==>{}
+==>{}
+==>{}
+==>{}
+==>{place=POINT (23.9 37.700001), time=2}
+==>{time=12, place=POINT (22 39)}
+==>{place=POINT (23.700001 38.099998), time=1}
+==>{time=12, place=POINT (22 39)}
+==>{}
+==>{}
+==>{}
+==>{reason=no fear of death}
+==>{}
+==>{}
+==>{reason=loves fresh breezes}
+==>{}
+==>{}
+==>{}
+==>{}
+==>{reason=loves fresh breezes}
+==>{}
+==>{reason=no fear of death}
+==>{}
+==>{}
+==>{}
+==>{}
+==>{}
+==>{reason=loves waves}
+==>{}
+==>{time=2, place=POINT (23.9 37.700001)}
+==>{time=1, place=POINT (23.700001 38.099998)}
+gremlin> neptune_id = g.V().has('name', 'neptune').id().next()
+==>12304
+gremlin> g.V(neptune_id).outE('brother').inV().inE('father').outV().out().has('name', 'nemean').path()
+==>path[v[12304], e[b2a-9hs-b2t-6c0][12304-brother->8208], v[8208], e[363-388-6c5-6c0][4184-father->8208], v[4184], e[3yj-388-7x1-ftc][4184-battled->20496], v[20496]]
